@@ -1,10 +1,15 @@
 ===============================================================================
-ANSI_C_UTILS 
+
+# ANSI_C_UTILS 
+
 ===============================================================================
--------------------------------------------------------------------------------
+
 ===============================================================================
-AuthoredBy: Nathanael J Y
-Git Repo: 
+
+**AuthoredBy: Nathanael J Y**
+
+**Git Repo: https://github.com/nathanael-joseph/ANSI_C_UTILS**
+
 ===============================================================================
 
 This library provides additional types, including basic datastructures, and useful uitilities for working with them.
