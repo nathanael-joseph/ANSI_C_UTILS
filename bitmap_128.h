@@ -12,7 +12,7 @@ Assignment: Maman 22 Question 1
 #define BITMAP_H
 
 #include <stdlib.h>
-#include "memorymanagement.h"
+#include "memory_management.h"
 
 /* --- CONSTANTS/MACROS ----------------------------------- */
 
@@ -34,16 +34,16 @@ typedef struct {
 
 
 /* returns a pointer to a new insatnce of a bitmap, or null if malloc fails */
-Bitmap_128 *bitmap_128_init();
+Bitmap_128 *Bitmap_128_init();
 /* returns the value of a single bit in the bitmap for a given index */
-int bitmap_128_getBit(void *bitmap, int index);
+int Bitmap_128_getBit(void *bitmap, int index);
 /* sets a single bit to 1 for a given index in the bitmap */
-void bitmap_128_setBit(void *bitmap, int index);
+void Bitmap_128_setBit(void *bitmap, int index);
 /* sets a single bit to 0 for a given index in the bitmap */
-void bitmap_128_clearBit(void *bitmap, int index);
+void Bitmap_128_clearBit(void *bitmap, int index);
 /* copies the contents of bitmap_b into bitmap_a */
-void bitmap_128_copy(void *bitmap_a, void *bitmap_b);
+void Bitmap_128_copy(void *bitmap_dest, void *bitmap_source);
 /* returns true if the bitmap is empty, false otherwise */
-Boolean bitmap_128_isEmpty(void *bitmap);
+Boolean Bitmap_128_isEmpty(void *bitmap);
 
 #endif
