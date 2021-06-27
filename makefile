@@ -10,6 +10,7 @@
 objects = memory_management.o \
 		  error_management.o \
 		  bitmap_128.o \
+		  bitmap.o \
 		  char_utils.o \
 		  string_utils.o \
 		  test.o 

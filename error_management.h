@@ -19,8 +19,6 @@ Assignment: Maman 22 Question 1
 /* --- CONSTANTS ------------------------------------------ */
 
 #define MEM_ALLOC_ERR (-1)
-#define INV_TERMINATION_ERR (-2)
-
 
 /* --- TYPE DEFINITIONS ----------------------------------- */
 
@@ -28,18 +26,7 @@ Assignment: Maman 22 Question 1
 
 /* Prints an error message to stderr, and exits the program. */
 void em_throwMemoryAllocationErorr();
-/* Prints an error message to stderr, does not exit */
-void em_throwInvalidArgumentCountError();
-/* Prints an error message to stderr, does not exit */
-void em_throwInvalidArgumentError(String argumentName);
-/* Prints an error message to stderr, does not exit */
-void em_throwInvalidFunctionError(String functionName);
-/* Prints an error message to stderr, does not exit */
-void em_throwArgumentOutOfRangeError(String argument);
-/* Prints an error message to stderr, does not exit */
-void em_throwInvalidFunctionTerminationError();
-/* Prints an error message to stderr, and exits the program. */
-void em_throwInvalidTerminationError();
+
 
 
 #endif
