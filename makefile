@@ -9,7 +9,7 @@
 
 objects = system_utils/memory_management.o \
 		  datastructures/bitmap.o \
-		  datastructures/nodes.o \
+		  datastructures/singlelinkedlist.o \
 		  type_utils/char_utils.o \
 		  type_utils/string_utils.o \
 		  test.o 
@@ -18,7 +18,7 @@ debugFlags = -g -ansi -Wall -pedantic -I ./
 
 All: $(objects)
 	gcc $(debugFlags) $(objects) -o test
-	find . -name '*.o' -type f -delete
+#	find . -name '*.o' -type f -delete
 
 %.o: %.c %.h
 	gcc -c $(debugFlags) $< -o $@
