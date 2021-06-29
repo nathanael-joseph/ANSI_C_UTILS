@@ -14,8 +14,8 @@ Assignment: Maman 22 Question 1
 #include <string.h>
 #include <stdlib.h>
 #include "more_types.h"
-#include "memory_management.h"
-#include "char_utils.h"
+#include "system_utils/memory_management.h"
+#include "type_utils/char_utils.h"
 
 
 /* --- CONSTANTS ------------------------------------------ */

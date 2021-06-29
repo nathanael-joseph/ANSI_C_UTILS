@@ -13,13 +13,17 @@ Assignment: Maman 22 Question 1
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "error_management.h"
+
 
 /* 
 This header file overrides the malloc, realloc, and calloc functions.
 If a memory allocation error occurs, an error message will be printed
-to stderr, and the program will exit, returning -1.
+to stderr, and the program will exit, returning -5.
 */
+
+/* --- CONSTANTS ------------------------------------------ */
+
+#define MEM_ALLOC_ERR (-5)
 
 /* --- MACRO OVERRIDES ------------------------------------ */
 

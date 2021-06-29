@@ -15,14 +15,17 @@ Assignment: Maman 22 Question 1
 #undef realloc 
 
 /* --- PRIVATE FUNCTION DEFINITIONS --------------------------------- */
-
+static void mm_throwMemoryAllocationErorr() {
+	fputs("A memory allocation Error occured... \nExiting... \n", stderr);
+	exit(MEM_ALLOC_ERR);
+}
 /* --- FUNCTION DEFINITIONS ----------------------------------------- */
 
 void *mm_malloc(size_t size) {
 	void *ptr;
 
 	if((ptr = malloc(size)) == NULL) {
-		em_throwMemoryAllocationErorr();	/* will call exit(-1) */
+		mm_throwMemoryAllocationErorr();	/* will call exit(-1) */
 	} 
 
 	return ptr;
@@ -31,7 +34,7 @@ void *mm_malloc(size_t size) {
 void *mm_calloc(size_t nitems, size_t size) {
 	void *ptr;
 	if((ptr = calloc(nitems, size)) == NULL) {
-		em_throwMemoryAllocationErorr();	/* will call exit(-1) */
+		mm_throwMemoryAllocationErorr();	/* will call exit(-1) */
 	} 
 	return ptr;
 }
@@ -39,7 +42,7 @@ void *mm_calloc(size_t nitems, size_t size) {
 void *mm_realloc(void *ptr, size_t size) {
 
 	if((ptr = realloc(ptr, size)) == NULL) {
-		em_throwMemoryAllocationErorr();	/* will call exit(-1) */
+		mm_throwMemoryAllocationErorr();	/* will call exit(-1) */
 	} 
 
 	return ptr;

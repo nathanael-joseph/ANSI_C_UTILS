@@ -7,25 +7,27 @@
 #-------------------------------------------------------------------------------
 
 
-objects = memory_management.o \
-		  error_management.o \
-		  bitmap_128.o \
-		  bitmap.o \
-		  char_utils.o \
-		  string_utils.o \
+objects = system_utils/memory_management.o \
+		  datastructures/bitmap.o \
+		  datastructures/nodes.o \
+		  type_utils/char_utils.o \
+		  type_utils/string_utils.o \
 		  test.o 
 
-debugFlags = -g -ansi -Wall -pedantic
+debugFlags = -g -ansi -Wall -pedantic -I ./
 
 All: $(objects)
 	gcc $(debugFlags) $(objects) -o test
-$(objects):
+	find . -name '*.o' -type f -delete
+
+%.o: %.c %.h
+	gcc -c $(debugFlags) $< -o $@
 
 
 run: All
 	./test
 
 clean:
-	rm $(objects)
+	find . -name '*.o' -type f -delete
 
 

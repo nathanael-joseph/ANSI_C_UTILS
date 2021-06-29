@@ -1,9 +1,8 @@
 
 #include "more_types.h"
-#include "error_management.h"
-#include "memory_management.h"
-#include "string_utils.h"
-#include "bitmap.h"
+#include "system_utils/memory_management.h"
+#include "type_utils/string_utils.h"
+#include "datastructures/bitmap.h"
 
 
 

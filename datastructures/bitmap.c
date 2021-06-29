@@ -8,7 +8,7 @@ Assignment: Maman 14
 -------------------------------------------------------------------------------
 */
 
-#include "bitmap.h"
+#include "datastructures/bitmap.h"
 
 /* --- STATIC FUNCTION DEFINITIONS ---------------------------------- */
 /* returns the number of words stored in the bitmap's words array */
