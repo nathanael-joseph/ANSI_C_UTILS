@@ -20,6 +20,7 @@ Assignment: Maman 22 Question 1
 
 /* --- CONSTANTS ------------------------------------------ */
 
+#define PRIMARY_HASH_CONST (31)
 
 /* --- TYPE DEFINITIONS ----------------------------------- */
 
@@ -47,5 +48,15 @@ Returns the number of elements in the array.
 */
 int String_split(const String s, char deliminator, String **out);
 
+/* 
+	Gets gets hash number in the range [0, M-1] for the argument String.
+	
+	Hash: Rolling polynomial 
+		(s[0]P^0 + s[1]P^1 + ... + s[n-1]P^(n-1)) % M
+		P = 31, M = argument M
+
+	This is not a cryptographic hash function - use only for hashtables etc.
+*/
+unsigned int String_hash(const String str, unsigned int M); 
 
 #endif

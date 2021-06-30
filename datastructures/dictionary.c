@@ -21,11 +21,6 @@ struct dictionary {
 
 /* --- STATIC FUNCTION DEFINITIONS ---------------------------------- */
 
-/* 
-	Gets gets hash number in the range [0, size-1] for the argument String.
-	This is not a cryptographic hash function - use only for hashtable.
-*/
-static unsigned int Dictionary_Hash(String key, unsigned int size);
 
 
 /* --- FUNCTION DEFINITIONS ----------------------------------------- */

@@ -1,7 +1,7 @@
 /*
 -------------------------------------------------------------------------------
 Author: Nathanael J Y
-Last Modified: 04/05/2021
+Last Modified: 29/06/2021
 Written for: The Open University Of Israel
 Course: 20465 - C Programming Workshop
 Assignment: Maman 22 Question 1
@@ -124,3 +124,26 @@ String String_trim(const String s) {
 
 	return result;
 }
+
+/* 
+	Gets gets hash number in the range [0, M-1] for the argument String.
+	
+	Hash: Rolling polynomial 
+		(s[0]P^0 + s[1]P^1 + ... + s[n-1]P^(n-1)) % M
+		P = 31, M = argument M
+
+	This is not a cryptographic hash function - use only for hashtables etc.
+*/
+unsigned int String_hash(const String str, unsigned int M) {
+	
+	unsigned int i, chr, p = 1, hash = 0;
+
+	for (i = 0; i < strlen(str); i++) {
+		p *= PRIMARY_HASH_CONST;
+		chr = str[i];
+		hash = (hash + chr*p) % M;
+	}
+
+	return hash;
+}
+
