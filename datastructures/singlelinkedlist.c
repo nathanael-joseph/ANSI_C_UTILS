@@ -1,7 +1,7 @@
 /*
 -------------------------------------------------------------------------------
 Author: Nathanael J Y
-Last Modified: 29/06/2021
+Last Modified: 30/06/2021
 Written for: The Open University Of Israel
 Course: 20465 - C Programming Workshop
 Assignment: Maman 14
@@ -11,6 +11,7 @@ Assignment: Maman 14
 #include "datastructures/singlelinkedlist.h"
 
 /* --- PRIVATE STRUCT/TYPE DEFINITIONS ------------------------------ */
+
 typedef struct singleLinkedListNode SingleLinkedListNode;
 
 struct singleLinkedListNode {
@@ -47,6 +48,10 @@ static void SingleLinkedListNode_free(void *node) {
 	return;
 }
 
+static void SingleLinkedListNode_updateData(void *data, void *node) {
+	SingleLinkedListNode *nde = node;
+	nde->data = data;
+}
 
 /* --- FUNCTION DEFINITIONS ----------------------------------------- */
 
@@ -235,17 +240,38 @@ void SingleLinkedList_removeByCallback(void *compareData, void *list, Boolean (*
 }
 
 /* executes (*callback)(key, data) on each node in the list */
-void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *data) ) {
+void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *data, void *args), void *args) {
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *current;
 
 	current	= lst->head;
 	while (current != NULL) {
 
-		(*callback)(current->key, current->data);
+		(*callback)(current->key, current->data, args);
 
 		current = current->next;
 	}
 
 	return;
+}
+
+/* replaces the data for all nodes in the list with the same key as argument key, and returns the number of nodes updated */
+unsigned int SingleLinkedList_findAndReplaceByKey(String key, void *data, void *list) {
+
+	unsigned int count = 0;
+	SingleLinkedList *lst = list;
+	SingleLinkedListNode *current;
+
+	current	= lst->head;
+	while (current != NULL) {
+
+		if (String_equals(current->key, key)) {
+			SingleLinkedListNode_updateData(data, current);
+			count++;
+		}
+
+		current = current->next;
+	}
+
+	return count;
 }

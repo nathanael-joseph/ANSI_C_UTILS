@@ -1,7 +1,7 @@
 /*
 -------------------------------------------------------------------------------
 Author: Nathanael J Y
-Last Modified: 29/06/2021
+Last Modified: 30/06/2021
 Written for: The Open University Of Israel
 Course: 20465 - C Programming Workshop
 Assignment: Maman 14
@@ -12,6 +12,7 @@ Assignment: Maman 14
 #define SINGLE_LINKED_LIST_H
 
 #include <stdlib.h>
+#include <stdarg.h>
 #include "more_types.h"
 #include "system_utils/memory_management.h"
 #include "type_utils/string_utils.h"
@@ -60,7 +61,10 @@ void SingleLinkedList_removeByKey(String key, void *list);
 void SingleLinkedList_removeByCallback(void *compareData, void *list, Boolean (*callback)(void *compareData, void *data));
 
 /* executes (*callback)(key, data) on each node in the list */
-void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *data) );
+void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *data, void *args), void *args);
+
+/* replaces the data for all nodes in the list with the same key as argument key, and returns the number of nodes updated */
+unsigned int SingleLinkedList_findAndReplaceByKey(String key, void *data, void *list);
 
 
 

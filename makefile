@@ -10,6 +10,7 @@
 objects = system_utils/memory_management.o \
 		  datastructures/bitmap.o \
 		  datastructures/singlelinkedlist.o \
+		  datastructures/dictionary.o \
 		  type_utils/char_utils.o \
 		  type_utils/string_utils.o \
 		  test.o 
