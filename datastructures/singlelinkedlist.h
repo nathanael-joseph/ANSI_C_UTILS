@@ -14,6 +14,7 @@ Assignment: Maman 14
 #include <stdlib.h>
 #include "more_types.h"
 #include "system_utils/memory_management.h"
+#include "type_utils/string_utils.h"
 
 /* --- CONSTANTS ------------------------------------------ */
 
@@ -38,13 +39,13 @@ Boolean SingleLinkedList_isEmpty(void *list);
 Boolean SingleLinkedList_containsKey(String key, void *list);
 
 /* Returns a pointer to the first list node's data having the key provided. */
-void *SingleLinkedList_getDataByKey(String key, void *list);
+void *SingleLinkedList_getByKey(String key, void *list);
 
 /* 
   Returns a pointer to the first list node's data for which equals(compareToData, node->data) returns true.
   Returns NULL if no match is found. 
  */
-void *SingleLinkedList_getDataByComparison(void *compareData, void *list, Boolean (*equals)(void *a, void *b));
+void *SingleLinkedList_getByCallback(void *compareData, void *list, Boolean (*callback)(void *compareData, void *data));
 
 /* Adds a new node with the key and data arguments, to the begining of the list. */
 void SingleLinkedList_insert(String key, void *data, void *list);
@@ -53,11 +54,13 @@ void SingleLinkedList_insert(String key, void *data, void *list);
 void SingleLinkedList_append(String key, void *data, void *list);
 
 /* Removes the first node in the list having the same key as argument key.  */
-void SingleLinkedList_removeDataByKey(String key, void *list);
+void SingleLinkedList_removeByKey(String key, void *list);
 
 /* Removes the first node in the list which equals(compareData, node->data) returns true. */
-void SingleLinkedList_removeDataByComparison(void *compareData, void *list, Boolean (*equals)(void *a, void *b));
+void SingleLinkedList_removeByCallback(void *compareData, void *list, Boolean (*callback)(void *compareData, void *data));
 
+/* executes (*callback)(key, data) on each node in the list */
+void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *data) );
 
 
 
