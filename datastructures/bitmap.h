@@ -4,7 +4,7 @@ Author: Nathanael J Y
 Last Modified: 27/06/2021
 Written for: The Open University Of Israel
 Course: 20465 - C Programming Workshop
-Assignment: Maman 14
+Assignment: Maman 22
 -------------------------------------------------------------------------------
 */
 
@@ -36,6 +36,8 @@ typedef struct {
 
 /* returns a pointer to a new insatnce of a bitmap, or null if malloc fails */
 Bitmap *Bitmap_init(unsigned int size);
+/* frees an entire bitmap */
+void Bitmap_free(void *bitmap);
 /* returns the value of a single bit in the bitmap for a given index */
 int Bitmap_getBit(void *bitmap, int index);
 /* sets a single bit to 1 for a given index in the bitmap */
@@ -46,6 +48,5 @@ void Bitmap_clearBit(void *bitmap, int index);
 void Bitmap_copy(void *bitmap_dest, void *bitmap_source);
 /* returns true if the bitmap is empty, false otherwise */
 Boolean Bitmap_isEmpty(void *bitmap);
-/* frees an entire bitmap */
-void Bitmap_free(void *bitmap);
+
 #endif

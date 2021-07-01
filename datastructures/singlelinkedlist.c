@@ -48,10 +48,6 @@ static void SingleLinkedListNode_free(void *node) {
 	return;
 }
 
-static void SingleLinkedListNode_updateData(void *data, void *node) {
-	SingleLinkedListNode *nde = node;
-	nde->data = data;
-}
 
 /* --- FUNCTION DEFINITIONS ----------------------------------------- */
 
@@ -65,6 +61,11 @@ void *SingleLinkedList_init() {
 
 /* Frees the entire list, but does not free the data pointers in the list's nodes */
 void SingleLinkedList_free(void *list) {
+	SingleLinkedList_freeWithCallback(list, NULL);
+}
+
+/* Frees the entire list, and calls callback(node->data) on each node before it is freed. */
+void SingleLinkedList_freeWithCallback(void *list, void (*callback)(void *data) ) {
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *current, *next;
 	
@@ -73,6 +74,9 @@ void SingleLinkedList_free(void *list) {
 	while(next != NULL) {
 		current = next;
 		next = current->next;
+		if(callback) {
+			(*callback)(current->data);
+		}
 		SingleLinkedListNode_free(current);
 	}
 
@@ -181,9 +185,14 @@ void SingleLinkedList_append(String key, void *data, void *list) {
 	return;
 }
 
-/* Removes the first node in the list having the same key as argument key. */
-void SingleLinkedList_removeByKey(String key, void *list) {
+/* 
+	Removes the first node in the list having the same key as argument key. 
+	Returns the data pointer of the node removed. If no node was removed, returns NULL.
+*/
+void *SingleLinkedList_removeFirstByKey(String key, void *list) {
 	
+	void *data;
+
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *current, *previous;
 
@@ -199,20 +208,28 @@ void SingleLinkedList_removeByKey(String key, void *list) {
 				previous->next = current->next;
 			}
 
+			data = current->data;
+
 			SingleLinkedListNode_free(current);
-			return;
+			return data;
 		}
 
 		previous = current;
 		current = current->next;
 	}
 
-	return;
-
+	return NULL;
 }
 
-/* Removes the first node in the list which equals(compareData, node->data) returns true. */
-void SingleLinkedList_removeByCallback(void *compareData, void *list, Boolean (*callback)(void *compareData, void *data)) {
+
+/* 
+	Removes the first node in the list for which callback(compareData, node->data) returns true. 
+	Returns the data pointer of the node removed. If no node was removed, returns NULL.
+*/
+void *SingleLinkedList_removeFirstByCallback(void *compareData, void *list, Boolean (*callback)(void *compareData, void *data)) {
+	
+	void *data;
+
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *current, *previous;
 
@@ -228,15 +245,17 @@ void SingleLinkedList_removeByCallback(void *compareData, void *list, Boolean (*
 				previous->next = current->next;
 			}
 
+			data = current->data;
+
 			SingleLinkedListNode_free(current);
-			return;
+			return data;
 		}
 
 		previous = current;
 		current = current->next;
 	}
 
-	return;
+	return NULL;
 }
 
 /* executes (*callback)(key, data) on each node in the list */
@@ -266,7 +285,7 @@ unsigned int SingleLinkedList_findAndReplaceByKey(String key, void *data, void *
 	while (current != NULL) {
 
 		if (String_equals(current->key, key)) {
-			SingleLinkedListNode_updateData(data, current);
+			current->data = data;
 			count++;
 		}
 

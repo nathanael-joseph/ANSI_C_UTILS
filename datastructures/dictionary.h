@@ -34,7 +34,10 @@ typedef struct dictionary Dictionary;
 void *Dictionary_init();
 
 /* Frees the dictionary, but does not call free on value pointers. */
-void Dictionary_free();
+void Dictionary_free(void *dictionary);
+
+/* Frees the dictionary, and calls callback(value) on each value before the entry is freed */
+void Dictionary_freeWithCallback(void *dictionary, void (*callback)(void *value) );
 
 /* Returns true if the dictionary contains the argmuent key, false otherwise. */
 Boolean Dictionary_containsKey(String key, void *dictionary);
@@ -48,11 +51,17 @@ void Dictionary_setValue(String key, void *value, void *dictionary);
 /* Returns the value pointer for the given key in the dictionary. Returns NULL if no such key exists */ 
 void *Dictionary_getValue(String key, void *dictionary);
 
-/* removes the entry in the hash table for the argument key */
-void Dictionary_removeKey(String key, void *dictionary);
+/* 
+	Removes the entry in the hash table for the argument key, and returns its value pointer.
+	Returns NULL if no matching key was found.
+*/
+void *Dictionary_removeKey(String key, void *dictionary);
 
 /* returns the current size of the hastable array */
 unsigned int Dictionary_getSize(void *dictionary);
+
+/* returns the current number of keys in the dictionary */
+unsigned int Dictionary_getCount(void *dictionary);
 
 /* returns the number of elements in the hashtable devided by the size */
 float Dictionary_getDensity(void *dictionary);

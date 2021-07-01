@@ -4,7 +4,7 @@ Author: Nathanael J Y
 Last Modified: 27/06/2021
 Written for: The Open University Of Israel
 Course: 20465 - C Programming Workshop
-Assignment: Maman 14
+Assignment: Maman 22
 -------------------------------------------------------------------------------
 */
 
@@ -26,6 +26,14 @@ Bitmap *Bitmap_init(unsigned int size) {
 	bm->size = size;
 	return bm;
 }
+
+/* frees an entire bitmap */
+void Bitmap_free(void *bitmap) {
+	Bitmap *bm = bitmap;
+	free(bm->words);
+	free(bm);
+}
+
 /* returns the value of a single bit in the bitmap for a given index */
 int Bitmap_getBit(void *bitmap, int index) {
 	Bitmap *bm = bitmap;
@@ -68,9 +76,3 @@ Boolean bitmap_isEmpty(void *bitmap) {
 
 }
 
-/* frees an entire bitmap */
-void Bitmap_free(void *bitmap) {
-	Bitmap *bm = bitmap;
-	free(bm->words);
-	free(bm);
-}
