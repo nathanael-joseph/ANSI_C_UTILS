@@ -7,28 +7,13 @@
 #-------------------------------------------------------------------------------
 
 
-objects = system_utils/memory_management.o \
-		  datastructures/bitmap.o \
-		  datastructures/singlelinkedlist.o \
-		  datastructures/dictionary.o \
-		  type_utils/char_utils.o \
-		  type_utils/string_utils.o \
-		  test.o 
+ansi_c_utils_obj := ANSI_C_UTILS/system_utils/memory_management.o \
+		  ANSI_C_UTILS/datastructures/bitmap.o \
+		  ANSI_C_UTILS/datastructures/singlelinkedlist.o \
+		  ANSI_C_UTILS/datastructures/dictionary.o \
+		  ANSI_C_UTILS/type_utils/char_utils.o \
+		  ANSI_C_UTILS/type_utils/string_utils.o 
 
-debugFlags = -g -ansi -Wall -pedantic -I ./
-
-All: $(objects)
-	gcc $(debugFlags) $(objects) -o test
-#	find . -name '*.o' -type f -delete
-
-%.o: %.c %.h
-	gcc -c $(debugFlags) $< -o $@
-
-
-run: All
-	./test
-
-clean:
-	find . -name '*.o' -type f -delete
+ansi_c_utils_inlcudePath := -I ./ANSI_C_UTILS/
 
 
