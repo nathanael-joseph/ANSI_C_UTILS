@@ -18,14 +18,12 @@ Assignment: Maman 22
 
 /* --- CONSTANTS/MACROS ----------------------------------- */
 
-#define WORD_SIZE 	(32)		/* int is 32 bits */
-#define GET_WORD_COUNT(size) (((size) + 31) / WORD_SIZE)
+#define WORD_SIZE 	(sizeof(Word)*8)		/* int is 32 bits */
+#define GET_WORD_COUNT(size) (((size) + WORD_SIZE -1) / WORD_SIZE)
 #define WORD_OFFSET(x) (x / WORD_SIZE)
 #define BIT_OFFSET(x) (x % WORD_SIZE) 
 
 /* --- TYPE DEFINITIONS ----------------------------------- */
-
-typedef unsigned int Word;
 
 typedef struct {
 	unsigned int size;

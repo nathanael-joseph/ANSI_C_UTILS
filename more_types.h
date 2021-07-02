@@ -20,5 +20,6 @@ typedef enum {
 
 typedef char *String;
 
+typedef unsigned int Word;
 
 #endif

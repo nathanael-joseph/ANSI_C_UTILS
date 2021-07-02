@@ -94,7 +94,7 @@ Boolean SingleLinkedList_isEmpty(void *list) {
 }
 
 /* Returns true if the linked list contains a node with the same key as the parameter key, false otherwise. */
-Boolean SingleLinkedList_containsKey(String key, void *list) {
+Boolean SingleLinkedList_containsKey(void *list, String key) {
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *current;
 
@@ -111,7 +111,7 @@ Boolean SingleLinkedList_containsKey(String key, void *list) {
 }
 
 /* Returns a pointer to the first list node's data having the key provided. */
-void *SingleLinkedList_getByKey(String key, void *list) {
+void *SingleLinkedList_getByKey(void *list, String key) {
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *current;
 
@@ -131,7 +131,7 @@ void *SingleLinkedList_getByKey(String key, void *list) {
   Returns a pointer to the first list node's data for which equals(compareToData, node->data) returns true.
   Returns NULL if no match is found. 
  */
-void *SingleLinkedList_getByCallback(void *compareData, void *list, Boolean (*callback)(void *compareData, void *data)) {
+void *SingleLinkedList_getByCallback(void *list, void *compareData, Boolean (*callback)(void *compareData, void *data)) {
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *current;
 
@@ -148,7 +148,7 @@ void *SingleLinkedList_getByCallback(void *compareData, void *list, Boolean (*ca
 }
 
 /* Adds a new node with the key and data arguments, to the begining of the list. */
-void SingleLinkedList_insert(String key, void *data, void *list) {
+void SingleLinkedList_insert(void *list, String key, void *data) {
 
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *node = SingleLinkedListNode_init(key, data);
@@ -165,14 +165,14 @@ void SingleLinkedList_insert(String key, void *data, void *list) {
 }
 
 /* Adds a new node with the key and data arguments, to the end of the list. O(1) */
-void SingleLinkedList_append(String key, void *data, void *list) {
+void SingleLinkedList_append(void *list, String key, void *data) {
 
 	SingleLinkedList *lst = list;
 	SingleLinkedListNode *node; 
 
 	if (SingleLinkedList_isEmpty(lst)) {
 
-		SingleLinkedList_insert(key, data, lst);	
+		SingleLinkedList_insert(lst, key, data);	
 		return;
 	} 
 
@@ -189,7 +189,7 @@ void SingleLinkedList_append(String key, void *data, void *list) {
 	Removes the first node in the list having the same key as argument key. 
 	Returns the data pointer of the node removed. If no node was removed, returns NULL.
 */
-void *SingleLinkedList_removeFirstByKey(String key, void *list) {
+void *SingleLinkedList_removeFirstByKey(void *list, String key) {
 	
 	void *data;
 
@@ -226,7 +226,7 @@ void *SingleLinkedList_removeFirstByKey(String key, void *list) {
 	Removes the first node in the list for which callback(compareData, node->data) returns true. 
 	Returns the data pointer of the node removed. If no node was removed, returns NULL.
 */
-void *SingleLinkedList_removeFirstByCallback(void *compareData, void *list, Boolean (*callback)(void *compareData, void *data)) {
+void *SingleLinkedList_removeFirstByCallback(void *list, void *compareData, Boolean (*callback)(void *compareData, void *data)) {
 	
 	void *data;
 
@@ -275,7 +275,7 @@ void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *dat
 }
 
 /* replaces the data for all nodes in the list with the same key as argument key, and returns the number of nodes updated */
-unsigned int SingleLinkedList_findAndReplaceByKey(String key, void *data, void *list) {
+unsigned int SingleLinkedList_findAndReplaceByKey(void *list, String key, void *data) {
 
 	unsigned int count = 0;
 	SingleLinkedList *lst = list;

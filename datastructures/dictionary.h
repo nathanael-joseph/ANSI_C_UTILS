@@ -40,22 +40,22 @@ void Dictionary_free(void *dictionary);
 void Dictionary_freeWithCallback(void *dictionary, void (*callback)(void *value) );
 
 /* Returns true if the dictionary contains the argmuent key, false otherwise. */
-Boolean Dictionary_containsKey(String key, void *dictionary);
+Boolean Dictionary_containsKey(void *dictionary, String key);
 
 /* Adds a new key value pair to the dictionary. Will throw an error if a duplicate key is provided */
 /* void Dictionary_add(String key, void *value, void *dictionary); -- use setvalue instead */
 
 /* Updates the value for the argument key in the dictionary. If no such key exists, it will be created */
-void Dictionary_setValue(String key, void *value, void *dictionary);
+void Dictionary_setValue(void *dictionary, String key, void *value);
 
 /* Returns the value pointer for the given key in the dictionary. Returns NULL if no such key exists */ 
-void *Dictionary_getValue(String key, void *dictionary);
+void *Dictionary_getValue(void *dictionary, String key);
 
 /* 
 	Removes the entry in the hash table for the argument key, and returns its value pointer.
 	Returns NULL if no matching key was found.
 */
-void *Dictionary_removeKey(String key, void *dictionary);
+void *Dictionary_removeKey(void *dictionary, String key);
 
 /* returns the current size of the hastable array */
 unsigned int Dictionary_getSize(void *dictionary);

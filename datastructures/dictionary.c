@@ -66,26 +66,26 @@ void Dictionary_freeWithCallback(void *dictionary, void (*callback)(void *value)
 
 
 /* Returns true if the dictionary contains the argmuent key, false otherwise. */
-Boolean Dictionary_containsKey(String key, void *dictionary) {
+Boolean Dictionary_containsKey(void *dictionary, String key) {
 	Dictionary *dict = dictionary;
 	
 	unsigned int hashcode = String_hash(key, dict->size);
 
-	return SingleLinkedList_containsKey(key, *(dict->hashtable + hashcode) );
+	return SingleLinkedList_containsKey(*(dict->hashtable + hashcode), key);
 }
 
 /* Adds a new key value pair to the dictionary. Will throw an error if a duplicate key is provided */
 /* void Dictionary_add(String key, void *value, void *dictionary); -- use setvalue instead */
 
 /* Updates the value for the argument key in the dictionary. If no such key exists, it will be created */
-void Dictionary_setValue(String key, void *value, void *dictionary) {
+void Dictionary_setValue(void *dictionary, String key, void *value) {
 	Dictionary *dict = dictionary;
 	
 	unsigned int hashcode = String_hash(key, dict->size);
 
 	/* if no nodes in the list were updated */
-	if (!SingleLinkedList_findAndReplaceByKey(key, value, *(dict->hashtable + hashcode) )) {
-		SingleLinkedList_insert(key,value, *(dict->hashtable + hashcode) );
+	if (!SingleLinkedList_findAndReplaceByKey(*(dict->hashtable + hashcode), key, value)) {
+		SingleLinkedList_insert(*(dict->hashtable + hashcode), key, value);
 		dict->count++;
 	}
 
@@ -93,25 +93,25 @@ void Dictionary_setValue(String key, void *value, void *dictionary) {
 }
 
 /* Returns the value pointer for the given key in the dictionary. Returns NULL if no such key exists */ 
-void *Dictionary_getValue(String key, void *dictionary) {	
+void *Dictionary_getValue(void *dictionary, String key) {	
 	Dictionary *dict = dictionary;
 	
 	unsigned int hashcode = String_hash(key, dict->size);	
 
-	return SingleLinkedList_getByKey(key, *(dict->hashtable + hashcode) );
+	return SingleLinkedList_getByKey(*(dict->hashtable + hashcode), key );
 }
 
 /* 
 	Removes the entry in the hash table for the argument key, and returns its value pointer.
 	Returns NULL if no matching key was found.
 */
-void *Dictionary_removeKey(String key, void *dictionary) {
+void *Dictionary_removeKey(void *dictionary, String key) {
 	Dictionary *dict = dictionary;
 	
 	void *value;
 	unsigned int hashcode = String_hash(key, dict->size);	
 
-	value = SingleLinkedList_removeFirstByKey(key, *(dict->hashtable + hashcode) );
+	value = SingleLinkedList_removeFirstByKey(*(dict->hashtable + hashcode), key);
 
 	if(value) {
 		dict->count--;
