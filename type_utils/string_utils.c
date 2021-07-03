@@ -28,12 +28,14 @@ Boolean String_tryParseInt(const String s, int *out) {
 	trimmed_s = String_trim(s);
 
 	if (! char_isNumber(trimmed_s[i])) {
-		if (trimmed_s[i++] == '-') {
+		if (trimmed_s[i] == '-') {
 			sign = -1;
 		}
-		else {
+		else if (trimmed_s[i] != '+') {
 			return false;
 		}
+
+		i++;
 	} 
 
 	while(i < strlen(trimmed_s)) {
@@ -136,12 +138,12 @@ String String_trim(const String s) {
 */
 unsigned int String_hash(const String str, unsigned int M) {
 	
-	unsigned int i, chr, p = 1, hash = 0;
+	unsigned int chr, hash = 0, n = strlen(str);
 
-	for (i = 0; i < strlen(str); i++) {
-		p *= PRIMARY_HASH_CONST;
-		chr = str[i];
-		hash = (hash + chr*p) % M;
+	while (n-- > 0) {
+		chr = str[n];
+		hash = chr + (hash*PRIMARY_HASH_CONST);
+		hash %= M; 
 	}
 
 	return hash;
