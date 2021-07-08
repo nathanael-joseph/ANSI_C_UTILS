@@ -21,19 +21,52 @@ struct dictionary {
 
 /* --- STATIC FUNCTION DEFINITIONS ---------------------------------- */
 
+/* 
+	callback function for SingleLinkedList_foreach( ...)
+	expects pointer : (*callback)(String key, void *data,void *args)
+ */
+static void addNodeToDictionary_callback(String key, void *data, void *dict) {
+	Dictionary_setValue(dict, key, data);	
+} 
 
+/* Doubles the dicitionary's size */
+static void Dictionary_grow(void *dict) {
+	Dictionary *currentDict, *tempDict;
+	SingleLinkedList *currentList;
+	SingleLinkedList **tempHashtable;
+	unsigned int i;
+
+	currentDict = dict;
+	tempDict = Dictionary_init(currentDict->size*2);
+
+	for(i = 0; i < currentDict->size; i++) {
+		currentList = *(currentDict->hashtable + i);
+		SingleLinkedList_foreach(currentList, addNodeToDictionary_callback, tempDict);
+	}
+
+	tempHashtable = tempDict->hashtable;
+	tempDict->hashtable = currentDict->hashtable;
+	tempDict->size = currentDict->size;
+	currentDict->hashtable = tempHashtable;
+
+	Dictionary_free(tempDict); 
+
+	currentDict->size *= 2;
+}
 
 /* --- FUNCTION DEFINITIONS ----------------------------------------- */
 
-
-
-/* Returns a pointer to a new empty dictionary */
-void *Dictionary_init() {
+/* 
+	Returns a pointer to a new empty dictionary with a sepcified starting size. Size must be greater than 0.
+	The Dictionary's array size (M) will double when N/M > 1. 
+*/
+void *Dictionary_init(unsigned int initialSize) {
 	unsigned int i; 
 
 	Dictionary *dict = malloc(sizeof(*dict));
-	dict->hashtable = calloc(DICTIONARY_INIT_SIZE, sizeof(*(dict->hashtable)));
-	dict->size = DICTIONARY_INIT_SIZE;
+
+	dict->hashtable = calloc(initialSize, sizeof(*(dict->hashtable)));
+	dict->size = initialSize;
 	dict->count = 0;
 
 	for(i = 0; i < dict->size; i++) {
@@ -44,24 +77,21 @@ void *Dictionary_init() {
 }
 
 /* Frees the dictionary, but does not call free on value pointers. */
-void Dictionary_free(void * dictionary) {
+void Dictionary_free(void *dictionary) {
 	Dictionary_freeWithCallback(dictionary, NULL);
 }
 
 /* Frees the dictionary, and calls callback(value) on each value before the entry is freed */
 void Dictionary_freeWithCallback(void *dictionary, void (*callback)(void *value) ) {
 	Dictionary *dict = dictionary;
-
 	unsigned int i;
 
-	for(i = 0; i< dict->size; i++) {
-		SingleLinkedList_freeWithCallback( *(dict->hashtable + i), callback);
+	for(i = 0; i < dict->size; i++) {
+		SingleLinkedList_freeWithCallback(*(dict->hashtable + i), callback);	
 	}
 
 	free(dict->hashtable);
 	free(dict);
-
-	return;
 }
 
 
@@ -80,16 +110,18 @@ Boolean Dictionary_containsKey(void *dictionary, String key) {
 /* Updates the value for the argument key in the dictionary. If no such key exists, it will be created */
 void Dictionary_setValue(void *dictionary, String key, void *value) {
 	Dictionary *dict = dictionary;
-	
 	unsigned int hashcode = String_hash(key, dict->size);
 
 	/* if no nodes in the list were updated */
 	if (!SingleLinkedList_findAndReplaceByKey(*(dict->hashtable + hashcode), key, value)) {
 		SingleLinkedList_insert(*(dict->hashtable + hashcode), key, value);
 		dict->count++;
+
+		if (Dictionary_getDensity(dict) > 1) {
+			Dictionary_grow(dict);
+		}
 	}
 
-	return;
 }
 
 /* Returns the value pointer for the given key in the dictionary. Returns NULL if no such key exists */ 

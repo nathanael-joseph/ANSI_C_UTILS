@@ -30,8 +30,11 @@ typedef struct dictionary Dictionary;
 
 /* --- FUNCTION DECLARATIONS ------------------------------ */
 
-/* Returns a pointer to a new empty dictionary */
-void *Dictionary_init();
+/* 
+	Returns a pointer to a new empty dictionary with a sepcified starting size. Size must be greater than 0.
+	The Dictionary's array size (M) will double when N/M > 1. 
+*/
+void *Dictionary_init(unsigned int initialSize);
 
 /* Frees the dictionary, but does not call free on value pointers. */
 void Dictionary_free(void *dictionary);

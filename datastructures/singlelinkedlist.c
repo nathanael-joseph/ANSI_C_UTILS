@@ -45,7 +45,6 @@ static void SingleLinkedListNode_free(void *node) {
 	free(nde->key);
 	free(nde); 
 
-	return;
 }
 
 
@@ -74,14 +73,16 @@ void SingleLinkedList_freeWithCallback(void *list, void (*callback)(void *data) 
 	while(next != NULL) {
 		current = next;
 		next = current->next;
+
 		if(callback) {
 			(*callback)(current->data);
 		}
+
 		SingleLinkedListNode_free(current);
 	}
 
 	free(lst);
-	return;
+
 }
 
 /* Returns true if the linked list is empty, false otherwise. */
@@ -160,8 +161,6 @@ void SingleLinkedList_insert(void *list, String key, void *data) {
 	node->next = lst->head; /* if list is empty, head is NULL, so list->tail->next == NULL */
 	lst->head = node;
 
-
-	return;
 }
 
 /* Adds a new node with the key and data arguments, to the end of the list. O(1) */
@@ -182,7 +181,6 @@ void SingleLinkedList_append(void *list, String key, void *data) {
 	lst->tail->next = node;
 	lst->tail = node;
 
-	return;
 }
 
 /* 
@@ -265,13 +263,11 @@ void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *dat
 
 	current	= lst->head;
 	while (current != NULL) {
-
+		
 		(*callback)(current->key, current->data, args);
-
 		current = current->next;
 	}
 
-	return;
 }
 
 /* replaces the data for all nodes in the list with the same key as argument key, and returns the number of nodes updated */

@@ -25,7 +25,7 @@ void *mm_malloc(size_t size) {
 	void *ptr;
 
 	if((ptr = malloc(size)) == NULL) {
-		mm_throwMemoryAllocationErorr();	/* will call exit(-1) */
+		mm_throwMemoryAllocationErorr();	/* will call exit(-5) */
 	} 
 
 	return ptr;
@@ -34,7 +34,7 @@ void *mm_malloc(size_t size) {
 void *mm_calloc(size_t nitems, size_t size) {
 	void *ptr;
 	if((ptr = calloc(nitems, size)) == NULL) {
-		mm_throwMemoryAllocationErorr();	/* will call exit(-1) */
+		mm_throwMemoryAllocationErorr();	/* will call exit(-5) */
 	} 
 	return ptr;
 }
@@ -42,7 +42,7 @@ void *mm_calloc(size_t nitems, size_t size) {
 void *mm_realloc(void *ptr, size_t size) {
 
 	if((ptr = realloc(ptr, size)) == NULL) {
-		mm_throwMemoryAllocationErorr();	/* will call exit(-1) */
+		mm_throwMemoryAllocationErorr();	/* will call exit(-5) */
 	} 
 
 	return ptr;
