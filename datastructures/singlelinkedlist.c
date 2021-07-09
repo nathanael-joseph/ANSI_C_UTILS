@@ -41,7 +41,7 @@ static void *SingleLinkedListNode_init(String key, void *data) {
 /* frees a single list node and it's key String */
 static void SingleLinkedListNode_free(void *node) {
 	SingleLinkedListNode *nde = node;
-
+	
 	free(nde->key);
 	free(nde); 
 
@@ -148,7 +148,11 @@ void *SingleLinkedList_getByCallback(void *list, void *compareData, Boolean (*ca
 	return NULL;	
 }
 
-/* Adds a new node with the key and data arguments, to the begining of the list. */
+/* 
+	Adds a new node with the key and data arguments, to the begining of the list. 
+	The key argument is copied into alocated memory which will be freed by the list.
+	The claler is responsible for freeing the argument string.
+*/
 void SingleLinkedList_insert(void *list, String key, void *data) {
 
 	SingleLinkedList *lst = list;
@@ -163,7 +167,11 @@ void SingleLinkedList_insert(void *list, String key, void *data) {
 
 }
 
-/* Adds a new node with the key and data arguments, to the end of the list. O(1) */
+/* 
+	Adds a new node with the key and data arguments, to the end of the list. O(1) 
+	The key argument is copied into alocated memory which will be freed by the list.
+	The claler is responsible for freeing the argument string.
+*/
 void SingleLinkedList_append(void *list, String key, void *data) {
 
 	SingleLinkedList *lst = list;
@@ -181,6 +189,29 @@ void SingleLinkedList_append(void *list, String key, void *data) {
 	lst->tail->next = node;
 	lst->tail = node;
 
+}
+
+/* 
+	Removes the first item in the list, and returns it's data pointer.
+	This allows the list to be implemented as a queue or stack, by using
+	either append or insert to add items.
+	Returns NULL if the list is empty.
+*/
+void *SingleLinkedList_pop(void *list) {
+	SingleLinkedList *lst = list;
+	SingleLinkedListNode *temp = lst->head;
+	
+	if (temp != NULL) {
+		
+		void *data = temp->data;
+		lst->head = temp->next;
+		
+		SingleLinkedListNode_free(temp);
+
+		return data;
+	}
+	
+	return NULL;
 }
 
 /* 
@@ -263,7 +294,7 @@ void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *dat
 
 	current	= lst->head;
 	while (current != NULL) {
-		
+
 		(*callback)(current->key, current->data, args);
 		current = current->next;
 	}
