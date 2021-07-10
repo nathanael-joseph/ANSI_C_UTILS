@@ -24,6 +24,18 @@ Assignment: Maman 14
 
 typedef struct singleLinkedList SingleLinkedList;
 
+typedef struct singleLinkedListNode SingleLinkedListNode;
+
+struct singleLinkedListNode {
+	SingleLinkedListNode *next;
+	String key;
+	void *data; 
+};
+
+struct singleLinkedList {
+	SingleLinkedListNode *head;
+	SingleLinkedListNode *tail;
+}; 
 
 /* --- FUNCTION DECLARATIONS ------------------------------ */
 

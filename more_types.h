@@ -20,6 +20,8 @@ typedef enum {
 
 typedef char *String;
 
+typedef unsigned char Byte;
+
 typedef unsigned int Word;
 
 #endif

@@ -12,19 +12,6 @@ Assignment: Maman 14
 
 /* --- PRIVATE STRUCT/TYPE DEFINITIONS ------------------------------ */
 
-typedef struct singleLinkedListNode SingleLinkedListNode;
-
-struct singleLinkedListNode {
-	SingleLinkedListNode *next;
-	String key;
-	void *data; 
-};
-
-struct singleLinkedList {
-	SingleLinkedListNode *head;
-	SingleLinkedListNode *tail;
-}; 
-
 /* --- STATIC FUNCTION DEFINITIONS ---------------------------------- */
 
 /* returns a pointer to a new list node */ 
@@ -41,7 +28,7 @@ static void *SingleLinkedListNode_init(String key, void *data) {
 /* frees a single list node and it's key String */
 static void SingleLinkedListNode_free(void *node) {
 	SingleLinkedListNode *nde = node;
-	
+
 	free(nde->key);
 	free(nde); 
 
