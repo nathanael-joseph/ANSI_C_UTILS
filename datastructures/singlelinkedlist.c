@@ -157,7 +157,7 @@ void SingleLinkedList_insert(void *list, String key, void *data) {
 /* 
 	Adds a new node with the key and data arguments, to the end of the list. O(1) 
 	The key argument is copied into alocated memory which will be freed by the list.
-	The claler is responsible for freeing the argument string.
+	The caller is responsible for freeing the argument key string.
 */
 void SingleLinkedList_append(void *list, String key, void *data) {
 
