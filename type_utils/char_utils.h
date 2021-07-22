@@ -1,7 +1,7 @@
 /*
 -------------------------------------------------------------------------------
 Author: Nathanael J Y
-Last Modified: 03/05/2021
+Last Modified: 22/07/2021
 Written for: The Open University Of Israel
 Course: 20465 - C Programming Workshop
 Assignment: Maman 22 Question 1
@@ -33,11 +33,15 @@ const char WHITESPACES_ARR[WHITESPACES_ARR_LEN];
 
 /* returns true if c is any of the following {' ', '\t', '\r', '\n', '\v', '\f'}, false otherwise */
 Boolean char_isWhitespace(char c); 
-/* returns 1 if c is in the range 'a' -'z', 0 otherwise */
+/* returns true if c is in the range 'a' -'z', false otherwise */
 Boolean char_isLowerCase(char c);
-/* returns 1 if c is in the range 'A' -'Z', 0 otherwise */
+/* returns true if c is in the range 'A' -'Z', false otherwise */
 Boolean char_isUpperCase(char c);
-/* returns 1 if c is in the range '0' -'9', 0 otherwise */
+/* returns true if c is in the range '0' -'9', false otherwise */
 Boolean char_isNumber(char c);
+/* returns true if c is an uppercase or lowercase letter, false otherwise */
+Boolean char_isLetter(char c);
+/* returns true if c is an uppercase or lowercase letter or a number, false otherwise */
+Boolean char_isLetterOrNumber(char c);
 
 #endif
