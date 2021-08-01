@@ -170,5 +170,20 @@ float Dictionary_getDensity(void *dictionary) {
 	return (float)dict->count/dict->size;
 }
 
+/* executes (*callback)(key, data) on each key valye pair in the dictionary */
+void Dictionary_foreach(void *dictionary, 
+						void (*callback)(String key, void *value, void *args), 
+						void *args) {
+	
+	Dictionary *dict = dictionary;
+	SingleLinkedList *currentList;
+	unsigned int i;
+
+
+	for(i = 0; i < currentDict->size; i++) {
+		currentList = *(currentDict->hashtable + i);
+		SingleLinkedList_foreach(currentList, callback, args);
+	}
+}
 
 

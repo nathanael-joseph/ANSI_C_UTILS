@@ -69,6 +69,10 @@ unsigned int Dictionary_getCount(void *dictionary);
 /* returns the number of elements in the hashtable devided by the size */
 float Dictionary_getDensity(void *dictionary);
 
+/* executes (*callback)(key, data) on each key valye pair in the dictionary */
+void Dictionary_foreach(void *dictionary, 
+						void (*callback)(String key, void *value, void *args), 
+						void *args);
 
 
 

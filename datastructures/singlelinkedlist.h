@@ -61,7 +61,9 @@ void *SingleLinkedList_getByKey(void *list, String key);
   Returns a pointer to the first list node's data for which callback(compareToData, node->data) returns true.
   Returns NULL if no match is found. 
  */
-void *SingleLinkedList_getByCallback(void *list, void *compareData, Boolean (*callback)(void *compareData, void *data));
+void *SingleLinkedList_getByCallback(void *list, 
+									 void *compareData, 
+									 Boolean (*callback)(void *compareData, void *data));
 
 /* 
 	Adds a new node with the key and data arguments, to the begining of the list. 
@@ -94,10 +96,14 @@ void *SingleLinkedList_removeFirstByKey(void *list, String key);
 	Removes the first node in the list for which callback(compareData, node->data) returns true. 
 	Returns the data pointer of the node removed. If no node was removed, returns NULL.
 */
-void *SingleLinkedList_removeFirstByCallback(void *list, void *compareData, Boolean (*callback)(void *compareData, void *data));
+void *SingleLinkedList_removeFirstByCallback(void *list, 
+											 void *compareData, 
+											 Boolean (*callback)(void *compareData, void *data));
 
 /* executes (*callback)(key, data) on each node in the list */
-void SingleLinkedList_foreach(void *list, void (*callback)(String key, void *data, void *args), void *args);
+void SingleLinkedList_foreach(void *list, 
+							  void (*callback)(String key, void *data, void *args), 
+							  void *args);
 
 /* replaces the data for all nodes in the list with the same key as argument key, and returns the number of nodes updated */
 unsigned int SingleLinkedList_findAndReplaceByKey(void *list, String key, void *data);
