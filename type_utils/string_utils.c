@@ -22,9 +22,9 @@ false otherwaise */
 Boolean String_tryParseInt(const String s, int *out) {
 
 	String trimmed_s;
-	int result, sign, i;
+	int sign, i;
 
-	result = 0; sign = 1; i = 0;
+	*out = 0; sign = 1; i = 0;
 	trimmed_s = String_trim(s);
 
 	if (! char_isNumber(trimmed_s[i])) {
@@ -43,8 +43,8 @@ Boolean String_tryParseInt(const String s, int *out) {
 			return false;
 		}
 		else {
-			result *= 10;
-			result += trimmed_s[i] - NUMBERS_START;
+			*out *= 10;
+			*out += trimmed_s[i] - NUMBERS_START;
 		}
 
 		 i++;
@@ -52,7 +52,7 @@ Boolean String_tryParseInt(const String s, int *out) {
 
 	free(trimmed_s);
 
-	*out = sign * result;
+	*out = sign * (*out);
 
 	return true;
 }
