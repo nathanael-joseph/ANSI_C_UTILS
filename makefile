@@ -11,6 +11,7 @@ ansi_c_utils_obj := ANSI_C_UTILS/system_utils/memory_management.o \
 		  ANSI_C_UTILS/datastructures/bitmap.o \
 		  ANSI_C_UTILS/datastructures/singlelinkedlist.o \
 		  ANSI_C_UTILS/datastructures/dictionary.o \
+		  ANSI_C_UTILS/datastructures/linkedlist_buffer.o \
 		  ANSI_C_UTILS/type_utils/char_utils.o \
 		  ANSI_C_UTILS/type_utils/string_utils.o 
 
